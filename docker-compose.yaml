@@ -1,0 +1,42 @@
+version: '3.9'
+
+services:
+
+  postgres:
+    image: postgres:16
+    container_name: tax_postgres
+
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: tax_reporting
+
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pipeline:
+    build: .
+
+    container_name: tax_pipeline
+
+    depends_on:
+      - postgres
+
+    env_file:
+      - .env
+
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      - ./output:/app/output
+      - ./data:/app/data
+
+volumes:
+  postgres_data:
