@@ -101,6 +101,8 @@ def extract_eth_trade_data(date1: str, date2: str) -> tuple:
         keep="last"
     )
 
+    combined_df["date"] = combined_df["date"].astype(str)
+
     combined_df.to_json(
         json_path,
         orient="records",
@@ -145,6 +147,8 @@ def extract_usdc_trade_data(date1:str, date2:str) -> tuple:
         subset=["date"],
         keep="last"
     )
+
+    combined_df["date"] = combined_df["date"].astype(str)
 
     combined_df.to_json(
         json_path,

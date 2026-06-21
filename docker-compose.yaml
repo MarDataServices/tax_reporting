@@ -38,5 +38,18 @@ services:
       - ./output:/app/output
       - ./data:/app/data
 
+  dbt:
+    image: ghcr.io/dbt-labs/dbt-postgres:1.9.latest
+    depends_on:
+      - postgres
+
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+
+    volumes:
+      - ./dbt:/usr/app
+      - ./profiles.yml:/root/.dbt/profiles.yml
+    working_dir: /usr/app
+
 volumes:
   postgres_data:

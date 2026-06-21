@@ -1,0 +1,11 @@
+tax_project_new:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: postgres
+      user: postgres
+      password: postgres
+      dbname: postgres
+      port: 5432
+      schema: public
