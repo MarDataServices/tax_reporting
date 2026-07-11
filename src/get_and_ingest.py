@@ -161,17 +161,3 @@ def extract_usdc_trade_data(date1:str, date2:str) -> tuple:
     file_df.columns = file_df.columns.str.strip()
 
     return file_df, combined_df
-
-def run_pipeline(start, end):
-    logging.info("Starting pipeline...")
-    
-    eth_trades_df, eth_prices_df = extract_eth_trade_data(start, end)
-    usdc_trades_df, usdc_prices_df = extract_usdc_trade_data(start, end)
-
-    load_to_db(eth_trades_df, "trades_eth")
-    load_to_db(eth_prices_df, "prices_eth")
-
-    load_to_db(usdc_trades_df, "trades_usdc")
-    load_to_db(usdc_prices_df, "prices_usdc")
-
-    logging.info("Pipeline completed successfully.")
